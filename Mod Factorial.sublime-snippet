@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+const int N = 1000001;
+ll fact[N + 1];
+
+// Function to return n! % p in O(1) time
+void factorial(ll p)
+{
+    fact[0] = 1;
+
+    for (int i = 1; i <= N; i++) {
+        fact[i] = (fact[i - 1] * i) % p;
+    }
+}
+
+/*call this function inside main to precompute
+factorial(mod);*/
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>factorialMod</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

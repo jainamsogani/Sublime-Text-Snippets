@@ -1,0 +1,68 @@
+<snippet>
+	<content><![CDATA[
+struct dsuNode{
+    ll parent, rank;
+};
+
+vector<dsuNode> dsuf;
+
+ll find(ll k)
+{
+    if(dsuf[k].parent==-1)
+        return k;
+
+    return dsuf[k].parent=find(dsuf[k].parent);
+}
+
+void union_op(ll x, ll y)
+{
+    x = find(x), y = find(y);
+
+    if(dsuf[x].rank > dsuf[y].rank)
+        dsuf[y].parent = x;
+    else if(dsuf[x].rank < dsuf[y].rank)
+        dsuf[x].parent = y;
+    else
+    {
+        dsuf[x].parent = y;
+        dsuf[y].rank++;
+    }
+}
+
+bool isCyclic(vector<pll> edge_List)
+{
+    for(auto it:edge_List)
+    {
+        ll x=find(it.ff), y=find(it.ss);
+
+        if(x==y)
+            return 1;
+        
+        union_op(x, y);
+    }
+
+    return 0;
+}
+
+//cut this function inside of main
+void initialize()
+{
+    dsuf.resize(V);
+    
+    f(i, 0, V)
+    {
+        dsuf[i].parent=-1;
+        dsuf[i].rank=0;
+    }
+
+    if(isCyclic(edge_List))
+        cout<<"TRUE\n";
+    else
+        cout<<"FALSE\n";
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dsu</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

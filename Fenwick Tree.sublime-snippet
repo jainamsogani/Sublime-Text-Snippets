@@ -1,0 +1,59 @@
+<snippet>
+	<content><![CDATA[
+const int maxN = 1e5 + 5;
+
+//indexing is 1-based
+//n is the size of array, declare it globally!
+ll fen[maxN];
+void update(ll i, ll add)
+{
+    while (i <= n)
+    {
+        fen[i] += add;
+        i += (i & (-i));
+    }
+}
+
+void update(ll l, ll r, ll add)
+{
+    update(l, add);
+    update(r + 1, -add);
+}
+
+ll sum(ll i)
+{
+    ll s = 0;
+    while (i > 0)
+    {
+        s += fen[i];
+        i -= (i & (-i));
+    }
+
+    return s;
+}
+
+ll sum(ll l, ll r) {
+    return sum(r) - sum(l - 1);
+}
+
+//returns the lower_bound of sum k
+ll find(ll k)
+{
+    ll curr = 0, prevSum = 0;
+    fo(i, log2(n + 0.1), 0)
+    {
+        if (fen[curr + (1 << i)] + prevSum < k)
+        {
+            curr = curr + (1 << i);
+            prevSum += fen[curr];
+        }
+    }
+
+    return (curr + 1);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>bit</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,46 @@
+<snippet>
+	<content><![CDATA[
+struct dsuNode {
+	ll parent, rank;
+};
+
+vector<dsuNode> dsuf;
+
+ll find(ll k)
+{
+	if (dsuf[k].parent == k)
+		return k;
+
+	return dsuf[k].parent = find(dsuf[k].parent);
+}
+
+void union_op(ll x, ll y)
+{
+	x = find(x), y = find(y);
+
+	if (x == y)
+		return;
+
+	if (dsuf[y].rank > dsuf[x].rank)
+		swap(x, y);
+
+	dsuf[y].parent = x;
+	dsuf[x].rank += dsuf[y].rank;
+}
+
+void initialize()
+{
+	dsuf.resize(V);
+
+	f(i, 0, V)
+	{
+		dsuf[i].parent = i;
+		dsuf[i].rank = 1;
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dsu2</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

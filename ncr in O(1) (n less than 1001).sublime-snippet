@@ -1,0 +1,33 @@
+<snippet>
+	<content><![CDATA[
+ll nc[1001][1001] = { 0 }; 
+  
+ll initialize() 
+{ 
+    nc[0][0] = 1; 
+
+    for (ll i = 1 ; i < 1001 ; i++)
+    {
+        nc[i][0] = 1;
+
+        for (ll j = 1 ; j < i + 1 ; j++)
+            nc[i][j] = (nc[i - 1][j - 1] + nc[i - 1][j]);
+    } 
+} 
+  
+// Function to return the value of nCr (n<=1000)
+ll nCr(ll n, ll r) 
+{
+    return nc[n][r]; 
+} 
+
+/*call these functions inside main to precompute
+
+initialize();
+*/
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ncr</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

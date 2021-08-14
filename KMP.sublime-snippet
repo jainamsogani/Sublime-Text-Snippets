@@ -1,0 +1,54 @@
+<snippet>
+	<content><![CDATA[
+vll prefix_function(string s)
+{
+    ll n = s.length();
+    vll pi(n, 0);
+
+    f(i, 1, n)
+    {
+        ll j = pi[i - 1];
+        while (j > 0 && s[i] != s[j])
+            j = pi[j - 1];
+
+        if (s[i] == s[j])
+            j++;
+
+        pi[i] = j;
+    }
+
+    return pi;
+}
+
+//gives the number of occurences of string p in string s
+ll KMP(string s, string p)
+{
+    vll pi = prefix_function(p);
+    ll ans = 0, j = 0;
+    ll m = p.length(), n = s.length();
+
+    f(i, 0, n)
+    {
+        while (j > 0 && s[i] != p[j])
+            j = pi[j - 1];
+
+        if (s[i] == p[j])
+        {
+            j++;
+
+            if (j == m)
+            {
+                ans++;
+                j = pi[m - 1];
+            }
+        }
+    }
+
+    return ans;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>KMP</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
