@@ -1,0 +1,127 @@
+<snippet>
+	<content><![CDATA[
+//0-based indexing
+//it calculates the values in segment ranging from l to r-1
+struct segTree
+{
+    ll size;
+    vll sums, lazy;
+
+    void init(ll n)
+    {
+        size = 1;
+        while (size < n)
+            size *= 2;
+
+        sums.assign(2 * size, 0);
+        lazy.assign(2 * size, 0);
+    }
+
+    void build(vll &a, ll x, ll lx, ll rx)
+    {
+        if (rx - lx == 1)
+        {
+            if (lx < a.size())
+                sums[x] = a[lx];
+
+            return;
+        }
+
+        ll mid = (lx + rx) / 2;
+        build(a, 2 * x + 1, lx, mid);
+        build(a, 2 * x + 2, mid, rx);
+
+        sums[x] = sums[2 * x + 1] + sums[2 * x + 2];
+    }
+
+    void build(vll &a) {
+        build(a, 0, 0, size);
+    }
+
+    //l, r-1 -> range to increase with v
+    void set(ll l, ll r, ll v, ll x, ll lx, ll rx)
+    {
+        if (lazy[x] != 0)
+        {
+            sums[x] += (rx - lx) * lazy[x];
+
+            //if this node have some children, increase their lazy values to it's lazy values
+            if (rx - lx > 1)
+            {
+                lazy[2 * x + 1] += lazy[x];
+                lazy[2 * x + 2] += lazy[x];
+            }
+
+            lazy[x] = 0;
+        }
+
+        //if this segment is completely outside the required segment
+        if (lx >= r || rx <= l || lx >= rx)
+            return;
+
+        //if this segment is completely inside the required segment
+        if (lx >= l && rx <= r)
+        {
+            sums[x] += (rx - lx) * v;
+
+            if (rx - lx > 1)
+            {
+                lazy[2 * x + 1] += v;
+                lazy[2 * x + 2] += v;
+            }
+
+            return;
+        }
+
+        ll mid = (lx + rx) / 2;
+        set(l, r, v, 2 * x + 1, lx, mid);
+        set(l, r, v, 2 * x + 2, mid, rx);
+
+        sums[x] = sums[2 * x + 1] + sums[2 * x + 2];
+    }
+
+    void set(ll l, ll r, ll v) {
+        set(l, r, v, 0, 0, size);
+    }
+
+    ll sum(ll l, ll r, ll x, ll lx, ll rx)
+    {
+        if (lazy[x] != 0)
+        {
+            sums[x] += (rx - lx) * lazy[x];
+
+            //if this node have some children, increase their lazy values to it's lazy values
+            if (rx - lx > 1)
+            {
+                lazy[2 * x + 1] += lazy[x];
+                lazy[2 * x + 2] += lazy[x];
+            }
+
+            lazy[x] = 0;
+        }
+
+        //if this segment is completely outside the required segment
+        if (lx >= r || rx <= l || lx >= rx)
+            return 0;
+
+        //if this segment is completely inside the required segment
+        if (lx >= l && rx <= r)
+            return sums[x];
+
+        ll mid = (lx + rx) / 2;
+        ll leftSum = sum(l, r, 2 * x + 1, lx, mid);
+        ll rightSum = sum(l, r, 2 * x + 2, mid, rx);
+
+        return leftSum + rightSum;
+    }
+
+    ll sum(ll l, ll r) {
+        return sum(l, r, 0, 0, size);
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segmentTree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
