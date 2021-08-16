@@ -1,0 +1,90 @@
+<snippet>
+	<content><![CDATA[
+//0-based indexing
+//it calculates the values in segment ranging from l to r-1
+struct segTree
+{
+	ll size;
+	vll sums;
+
+	void init(ll n)
+	{
+		size = 1;
+		while (size < n)
+			size *= 2;
+
+		sums.assign(2 * size, 0);
+	}
+
+	void build(vll &a, ll x, ll lx, ll rx)
+	{
+		if (rx - lx == 1)
+		{
+			if (lx < a.size())
+				sums[x] = a[lx];
+
+			return;
+		}
+
+		ll mid = (lx + rx) / 2;
+		build(a, 2 * x + 1, lx, mid);
+		build(a, 2 * x + 2, mid, rx);
+
+		sums[x] = sums[2 * x + 1] + sums[2 * x + 2];
+	}
+
+	void build(vll &a) {
+		build(a, 0, 0, size);
+	}
+
+	void set(ll i, ll v, ll x, ll lx, ll rx)
+	{
+		if (rx - lx == 1)
+		{
+			sums[x] = v;
+			return;
+		}
+
+		ll mid = (lx + rx) / 2;
+
+		//if it is in the left subtree
+		if (i < mid)
+			set(i, v, 2 * x + 1, lx, mid);
+		//if it is in the right subtree
+		else
+			set(i, v, 2 * x + 2, mid, rx);
+
+		sums[x] = sums[2 * x + 1] + sums[2 * x + 2];
+	}
+
+	void set(ll i, ll v) {
+		set(i, v, 0, 0, size);
+	}
+
+	ll sum(ll l, ll r, ll x, ll lx, ll rx)
+	{
+		//if the segment is completely outside the required segment
+		if (lx >= r || rx <= l)
+			return 0;
+
+		//if the segment is completely inside the required segment
+		if (lx >= l && rx <= r)
+			return sums[x];
+
+		ll mid = (lx + rx) / 2;
+		ll leftSum = sum(l, r, 2 * x + 1, lx, mid);
+		ll rightSum = sum(l, r, 2 * x + 2, mid, rx);
+
+		return leftSum + rightSum;
+	}
+
+	ll sum(ll l, ll r) {
+		return sum(l, r, 0, 0, size);
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>segmentTree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
