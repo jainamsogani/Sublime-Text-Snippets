@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+ll logn_to_the_baseb(ll n, ll b)
+{
+	ll ret = -1, k = 1;
+
+	while (k <= n)
+	{
+		k *= b;
+		ret++;
+	}
+
+	return ret;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>logn_to_the_baseb</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
