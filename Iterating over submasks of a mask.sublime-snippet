@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+ll submask = mask;
+while (submask > 0)
+{
+    // perform operations
+
+    submask = (submask - 1)&mask;
+}
+// handle submask=0 explicitly
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>submask</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
