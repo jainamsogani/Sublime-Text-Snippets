@@ -1,42 +1,42 @@
 <snippet>
 	<content><![CDATA[
 struct dsuNode {
-	ll parent, rank;
+    ll parent, rank;
 };
 
 vector<dsuNode> dsuf;
 
 ll find(ll k)
 {
-	if (dsuf[k].parent == k)
-		return k;
+    if (dsuf[k].parent == k)
+        return k;
 
-	return dsuf[k].parent = find(dsuf[k].parent);
+    return dsuf[k].parent = find(dsuf[k].parent);
 }
 
 void union_op(ll x, ll y)
 {
-	x = find(x), y = find(y);
+    x = find(x), y = find(y);
 
-	if (x == y)
-		return;
+    if (x == y)
+        return;
 
-	if (dsuf[y].rank > dsuf[x].rank)
-		swap(x, y);
+    if (dsuf[y].rank > dsuf[x].rank)
+        swap(x, y);
 
-	dsuf[y].parent = x;
-	dsuf[x].rank += dsuf[y].rank;
+    dsuf[y].parent = x;
+    dsuf[x].rank += dsuf[y].rank;
 }
 
-void initialize()
+void initialize(ll V)
 {
-	dsuf.resize(V);
+    dsuf.resize(V);
 
-	f(i, 0, V)
-	{
-		dsuf[i].parent = i;
-		dsuf[i].rank = 1;
-	}
+    f(i, 0, V)
+    {
+        dsuf[i].parent = i;
+        dsuf[i].rank = 1;
+    }
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->

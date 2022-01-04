@@ -1,0 +1,110 @@
+<snippet>
+	<content><![CDATA[
+class Node {
+public:
+    char data;
+    bool terminal;
+    uom<char, Node*> children;
+
+    Node(char ch)
+    {
+        this->data = ch;
+        this->terminal = false;
+    }
+};
+
+class Trie {
+public:
+    Node *root;
+    ll count;
+
+    Trie()
+    {
+        this->root = new Node('\0');
+        this->count = 0;
+    }
+
+    void insert(string str)
+    {
+        Node *temp = this->root;
+
+        f(i, 0, str.length())
+        {
+            char ch = str[i];
+
+            if (temp->children.count(ch))
+                //found
+                temp = temp->children[ch];
+            else
+            {
+                //not found
+                Node *n = new Node(ch);
+                temp->children[ch] = n;
+                temp = n;
+            }
+        }
+
+        temp->terminal = true;
+        this->count++;
+    }
+
+    bool search(string str)
+    {
+        Node *temp = this->root;
+
+        f(i, 0, str.length())
+        {
+            char ch = str[i];
+
+            if (temp->children.count(ch))
+                //found
+                temp = temp->children[ch];
+            else
+                //not found
+                return 0;
+        }
+
+        return temp->terminal;
+    }
+
+    void helperDFS(Node *root, string str, string osf)
+    {
+        if (root == NULL)
+            return;
+
+        if (root->terminal)
+            cout << str + osf << endl;
+
+        for (auto ch : root->children)
+            helperDFS(ch.ss, str, osf + ch.ff);
+    }
+
+    //prints all the strings availble in trie with prefix str
+    void prefixRange(string str)
+    {
+        Node *temp = this->root;
+
+        f(i, 0, str.length())
+        {
+            char ch = str[i];
+
+            if (temp->children.count(ch))
+                //found
+                temp = temp->children[ch];
+            else
+                //not found
+                return;
+        }
+
+        helperDFS(temp, str, "");
+    }
+};
+
+/*Time Complexity can be reduced by removing the Trie class and making these functions as
+independent.*/
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>trie</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

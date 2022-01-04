@@ -18,6 +18,9 @@ void union_op(ll x, ll y)
 {
     x = find(x), y = find(y);
 
+    if (x == y)
+    	return;
+
     if(dsuf[x].rank > dsuf[y].rank)
         dsuf[y].parent = x;
     else if(dsuf[x].rank < dsuf[y].rank)

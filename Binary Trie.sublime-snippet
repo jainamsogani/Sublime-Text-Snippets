@@ -1,0 +1,79 @@
+<snippet>
+	<content><![CDATA[
+class vertex {
+public:
+    ll children[2], cnt;
+
+    vertex()
+    {
+        children[0] = children[1] = -1;
+        cnt = 0;
+    }
+};
+
+class Trie {
+public:
+    vector<vertex> trie;
+
+    Trie()
+    {
+        trie.pb(vertex());
+    }
+
+    void insert(ll k)
+    {
+        ll curr = 0;
+        fo(i, 30, 0)
+        {
+            bool p = ((1 << i) & k);
+
+            if (trie[curr].children[p] == -1)
+            {
+                trie[curr].children[p] = trie.size();
+                trie.pb(vertex());
+            }
+
+            curr = trie[curr].children[p];
+            trie[curr].cnt++;
+        }
+    }
+
+    void remove(ll k)
+    {
+        ll curr = 0;
+        fo(i, 30, 0)
+        {
+            bool p = ((1 << i) & k);
+            curr = trie[curr].children[p];
+            trie[curr].cnt--;
+        }
+    }
+
+    ll maxXOR(ll k)
+    {
+        ll curr = 0, ans = 0;
+        fo(i, 30, 0)
+        {
+            bool p = ((1 << i) & k);
+
+            if ((trie[curr].children[!p] != -1) && (trie[trie[curr].children[!p]].cnt > 0))
+            {
+                ans += (1 << i);
+                curr = trie[curr].children[!p];
+            }
+            else
+                curr = trie[curr].children[p];
+        }
+
+        return ans;
+    }
+};
+
+/*Time Complexity can be reduced by removing the Trie class and making these functions as
+independent.*/
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>trie</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

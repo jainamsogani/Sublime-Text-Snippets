@@ -1,0 +1,66 @@
+<snippet>
+	<content><![CDATA[
+const int MAX = 10000001;
+ll factor[MAX] = { 0 }; 
+void generatePrimeFactors() 
+{ 
+    factor[1] = 1; 
+  
+   for (int i = 2; i < MAX; i++) 
+        factor[i] = i; 
+  
+    for (int i = 4; i < MAX; i += 2) 
+        factor[i] = 2; 
+  
+    for (int i = 3; i * i < MAX; i++)
+    { 
+        if (factor[i] == i)
+        { 
+            for (int j = i * i; j < MAX; j += i)
+            { 
+                if (factor[j] == j) 
+                    factor[j] = i; 
+            } 
+        } 
+    } 
+} 
+  
+ll calculateNoOFactors(int n) 
+{ 
+    if (n == 1) 
+        return 1LL; 
+  
+    ll ans = 1; 
+  
+    ll dup = factor[n]; 
+  
+    ll c = 1; 
+  
+    ll j = n / factor[n]; 
+ 
+     while (j != 1) { 
+  
+       if (factor[j] == dup) 
+            c += 1; 
+  
+ 
+        else { 
+            dup = factor[j]; 
+            ans = ans * (c + 1); 
+            c = 1; 
+        } 
+  
+        j = j / factor[j]; 
+    } 
+  
+ 
+    ans = ans * (c + 1LL); 
+  
+    return ans; 
+} 
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>numberOFactors</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

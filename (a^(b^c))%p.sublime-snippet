@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+ull fastModExp(ull x, ll y, ll p)
+{
+	ull res = 1;
+	x = x % p;
+
+	while (y > 0)
+	{
+		if (y & 1)
+			res = (res * x) % p;
+
+		y = y >> 1;
+		x = (x * x) % p;
+	}
+
+	return res;
+}
+
+// returns (a^(b^c))%p
+ull calculate(ull a, ull b, ull c, ull p)
+{
+	if (c == 0)
+		return (a % p);
+	else if (b == 0)
+		return 1;
+	else if (a % p == 0)
+		return 0;
+
+	ull res = fastModExp(b, c, p - 1);
+	return fastModExp(a, res, p);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>powerofpower</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

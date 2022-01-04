@@ -1,0 +1,30 @@
+<snippet>
+	<content><![CDATA[
+// returns the vector of indexes of the previous smaller element in the array
+// if no element is smaller, then previous smaller element is -1
+vll prevSmaller(ll a[], ll n)
+{
+	stack<ll> s;
+	vll v;
+
+	f(i, 0, n)
+	{
+		while (!s.empty() && a[s.top()] > a[i])
+			s.pop();
+
+		if (s.empty())
+			v.pb(-1);
+		else
+			v.pb(s.top());
+
+		s.push(i);
+	}
+
+	return v;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prevSmallerElement</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

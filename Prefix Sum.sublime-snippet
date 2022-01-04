@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+ll pre[n + 1];
+pre[0] = 0;
+
+f(i, 0, n)
+pre[i + 1] = a[i] + pre[i];
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>prefixSum</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

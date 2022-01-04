@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+// phi values upto n will be stored in array phi
+ll phi[1000001];
+void phiFunction(ll n)
+{
+    fill(phi, n + 1, i);
+
+    f(i, 2, n + 1)
+    {
+        if (phi[i] == i)
+        {
+            for (ll j = i ; j <= n ; j += i)
+                phi[j] = phi[j] * (i - 1) / i;
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>phiFunction</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
