@@ -57,7 +57,7 @@ ll divmod(ll a, ll b) {
 	if (a < 0) a += mod;
 	if (b < 0) b += mod;
  
-	ll ans = a * fastModExp(b, mod - 2);
+	ll ans = a * fastModExp(b, mod - 2, mod);
 	if (ans >= mod) ans %= mod;
 	return ans;
 }
