@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+long long fermat(long long n, long long r)
+{
+	if (n < r)
+		return 0;
+
+	if (r == 0 || n == r)
+		return 1;
+
+	if (r == n - 1 || r == 1)
+		return n;
+
+	long long fact[n + 1];
+	fact[0] = 1;
+	for (long long i = 1; i <= n; i++)
+		fact[i] = (fact[i - 1] * i) % mod;
+
+	long long a = fact[n];
+	long long b = mminvprime(fact[r], mod);
+	long long c = mminvprime(fact[n - r], mod);
+
+	return ((a * b) % mod * c % mod) % mod;
+}
+
+long long lucas(long long n, long long r)
+{
+	if (r == 0)
+		return 1;
+
+	long long ni = n % mod, ri = r % mod;
+	return (lucas(n / mod, r / mod) * fermat(ni, ri)) % mod;
+}
+
+int nCr(long long n, long long r)
+{
+	return lucas(n, r);
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ncrmodp</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

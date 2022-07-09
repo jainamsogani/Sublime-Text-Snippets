@@ -25,7 +25,7 @@ public:
         ll curr = 0;
         fo(i, 30, 0)
         {
-            bool p = ((1 << i) & k);
+            bool p = ((1LL << i) & k);
 
             if (trie[curr].children[p] == -1)
             {
@@ -43,7 +43,7 @@ public:
         ll curr = 0;
         fo(i, 30, 0)
         {
-            bool p = ((1 << i) & k);
+            bool p = ((1LL << i) & k);
             curr = trie[curr].children[p];
             trie[curr].cnt--;
         }
@@ -54,11 +54,11 @@ public:
         ll curr = 0, ans = 0;
         fo(i, 30, 0)
         {
-            bool p = ((1 << i) & k);
+            bool p = ((1LL << i) & k);
 
             if ((trie[curr].children[!p] != -1) && (trie[trie[curr].children[!p]].cnt > 0))
             {
-                ans += (1 << i);
+                ans += (1LL << i);
                 curr = trie[curr].children[!p];
             }
             else

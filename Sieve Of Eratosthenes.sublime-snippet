@@ -1,23 +1,23 @@
 <snippet>
 	<content><![CDATA[
-//vector primes has all the primes till n
+const int max_prime = 2750131;
 vll primes;
-void sieve(ll n)
+void sieve()
 {
-    bool a[n + 1];
-    fill(a, n + 1, 1);
-    a[0] = a[1] = 0;
+	bitset < max_prime + 1 > a;
+	fill(a, max_prime + 1, 1);
+	a[0] = a[1] = 0;
 
-    for (ll i = 2 ; i <= n ; i++)
-    {
-        if (a[i] == 1)
-        {
-            for (ll j = i * i ; j <= n ; j += i)
-                a[j] = 0;
+	for (ll i = 2 ; i <= max_prime ; i++)
+	{
+		if (a[i] == 1)
+		{
+			for (ll j = i * i ; j <= max_prime ; j += i)
+				a[j] = 0;
 
-            primes.push_back(i);
-        }
-    }
+			primes.push_back(i);
+		}
+	}
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->

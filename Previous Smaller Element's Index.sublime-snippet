@@ -9,7 +9,7 @@ vll prevSmaller(ll a[], ll n)
 
 	f(i, 0, n)
 	{
-		while (!s.empty() && a[s.top()] > a[i])
+		while (!s.empty() && a[s.top()] >= a[i])
 			s.pop();
 
 		if (s.empty())
